@@ -10,6 +10,15 @@ public class Reserva {
     private EstadoReserva estado;
     private double total;
 
+    public Reserva(String idReserva, Usuario usuario, List<Reservable> itemsReservados, EstadoReserva estado,
+            double total) {
+        this.idReserva = idReserva;
+        this.usuario = usuario;
+        this.itemsReservados = itemsReservados;
+        this.estado = estado;
+        this.total = total;
+    }
+
     public Reserva() {
         double sumaPrecios = 0.0;
         Iterator<Reservable> iterator = itemsReservados.iterator();

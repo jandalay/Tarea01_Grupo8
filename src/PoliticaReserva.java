@@ -4,7 +4,13 @@ public class PoliticaReserva {
     private String descripcion;
     private double valorAsociado;
 
-
+    public PoliticaReserva(String idPolitica, String tipo, String descripcion, double valorAsociado) {
+        this.idPolitica = idPolitica;
+        this.tipo = tipo;
+        this.descripcion = descripcion;
+        this.valorAsociado = valorAsociado;
+    }
+    
     //getters y setters
     public String getIdPolitica() {
         return idPolitica;

@@ -1,8 +1,15 @@
 public class AgenteSoporte extends Usuario {
+    
     private String password;
     private String tipoOperador;
     private Reservable tipoProblema;
     private Incidente incidente;
+    
+    
+    public AgenteSoporte(String id, String nombre, String email, String telefono, String password) {
+        super(id, nombre, email, telefono);
+        this.password = password;
+    }
 
     public void gestionarIncidente(Incidente incidente) {
         this.incidente = incidente;

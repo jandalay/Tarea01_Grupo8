@@ -7,6 +7,14 @@ public class PaseoTuristico implements Reservable{
     private EstadoPaseo estado;
     private double precio;
 
+    public PaseoTuristico(String id, String nombre, int plazasDisponibles, EstadoPaseo estado, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.plazasDisponibles = plazasDisponibles;
+        this.estado = estado;
+        this.precio = precio;
+    }
+
     @Override
     public double calcularPrecio() {
         return precio;

@@ -8,6 +8,14 @@ public class Hospedaje implements Reservable {
     private EstadoHabitacion estado;
     private double precio;
     
+    public Hospedaje(String id, String nombre, String tipoHabitacion, EstadoHabitacion estado, double precio) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipoHabitacion = tipoHabitacion;
+        this.estado = estado;
+        this.precio = precio;
+    }
+
     @Override
     public double calcularPrecio() {
         return precio;

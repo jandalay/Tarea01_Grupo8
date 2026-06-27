@@ -2,7 +2,7 @@ public class WhatsAppNotificador implements Notificador {
 
     @Override
     public void enviarNotificacion(Usuario usuario, String mensaje) {
-        // TODO Auto-generated method stub
+        System.out.println("Mensaje para: " + usuario.getNombre() + "\nMensaje: " + mensaje);
         
     }
 
