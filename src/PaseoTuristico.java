@@ -7,11 +7,11 @@ public class PaseoTuristico implements Reservable{
     private EstadoPaseo estado;
     private double precio;
 
-    public PaseoTuristico(String id, String nombre, int plazasDisponibles, EstadoPaseo estado, double precio) {
+    public PaseoTuristico(String id, String nombre, int plazasDisponibles, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.plazasDisponibles = plazasDisponibles;
-        this.estado = estado;
+        this.estado = EstadoPaseo.DISPONIBLE;
         this.precio = precio;
     }
 
@@ -32,4 +32,7 @@ public class PaseoTuristico implements Reservable{
         this.plazasDisponibles = plazas;
     }
 
+    public String toString() {
+        return "(ID: " + id + ", nombre: " + nombre + ", cantidad de plazas: " + plazasDisponibles + ", precio: " + precio + ")";
+    }
 }

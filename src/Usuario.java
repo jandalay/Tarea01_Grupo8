@@ -4,13 +4,14 @@ public class Usuario {
     private String email;
     private String telefono;
 
-    public Usuario(String id, String nombre, String email, String telefono) {
-        this.id = id;
+    public Usuario(String nombre, String email, String telefono) {
+        //El id es un número aleatorio
+        this.id = String.valueOf(Math.random()*1000.0);
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
     }
-    
+
     //getters y setters
     public String getId() {
         return id;

@@ -8,11 +8,11 @@ public class Hospedaje implements Reservable {
     private EstadoHabitacion estado;
     private double precio;
     
-    public Hospedaje(String id, String nombre, String tipoHabitacion, EstadoHabitacion estado, double precio) {
+    public Hospedaje(String id, String nombre, String tipoHabitacion, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.tipoHabitacion = tipoHabitacion;
-        this.estado = estado;
+        this.estado = EstadoHabitacion.DISPONIBLE;
         this.precio = precio;
     }
 
@@ -31,6 +31,10 @@ public class Hospedaje implements Reservable {
     
     public void cambiarEstado(EstadoHabitacion estado) {
         this.estado = estado;
+    }
+
+    public String toString() {
+        return "(ID: " + id + ", nombre: " + nombre + "tipo: " + tipoHabitacion + ", precio: " + precio + ")";
     }
 
 }

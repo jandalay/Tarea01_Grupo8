@@ -6,8 +6,8 @@ public class AgenteSoporte extends Usuario {
     private Incidente incidente;
     
     
-    public AgenteSoporte(String id, String nombre, String email, String telefono, String password) {
-        super(id, nombre, email, telefono);
+    public AgenteSoporte(String nombre, String email, String telefono, String password) {
+        super(nombre, email, telefono);
         this.password = password;
     }
 

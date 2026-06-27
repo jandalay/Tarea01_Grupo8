@@ -10,16 +10,16 @@ public class Reserva {
     private EstadoReserva estado;
     private double total;
 
-    public Reserva(String idReserva, Usuario usuario, List<Reservable> itemsReservados, EstadoReserva estado,
-            double total) {
-        this.idReserva = idReserva;
+    public Reserva(Usuario usuario, List<Reservable> itemsReservados) {
+        //el id es un número aleatorio
+        this.idReserva = String.valueOf(Math.random()*1000.0);
         this.usuario = usuario;
         this.itemsReservados = itemsReservados;
-        this.estado = estado;
-        this.total = total;
+        this.estado = EstadoReserva.DISPONIBLE;
+        this();
     }
 
-    public Reserva() {
+    private Reserva() {
         double sumaPrecios = 0.0;
         Iterator<Reservable> iterator = itemsReservados.iterator();
         while (iterator.hasNext()) {
@@ -47,5 +47,9 @@ public class Reserva {
 
     public Usuario getUsuario() {
         return usuario;
+    }
+
+    public List<Reservable> getItemsReservados(){
+        return itemsReservados;
     }
 }

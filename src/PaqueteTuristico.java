@@ -2,11 +2,18 @@ import java.util.List;
 import java.util.Iterator;
 
 
-public class PaqueteTuristico {
+public class PaqueteTuristico implements Reservable {
     private String id;
     private String nombre;
     private double descuento;
     private List<Reservable> items;
+
+    public PaqueteTuristico(String id, String nombre, double descuento, List<Reservable> items) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descuento = descuento;
+        this.items = items;
+    }
 
     public double calcularPrecio() {
         double sumaPrecios = 0.0;
@@ -46,6 +53,10 @@ public class PaqueteTuristico {
         else {
             System.out.println("Reserva no encontrada");
         }
+    }
+
+    public String toString() {
+        return "(ID: "+ id + ", nombre: " + nombre + ", descuento: " + descuento + " - Contiene: " + items + ")";
     }
 
 
