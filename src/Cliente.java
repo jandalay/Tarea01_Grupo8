@@ -1,3 +1,3 @@
-public class Cliente {
+public class Consumidor {
 
 }
