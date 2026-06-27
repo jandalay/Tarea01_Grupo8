@@ -33,6 +33,10 @@ public class Hospedaje implements Reservable {
         this.estado = estado;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String toString() {
         return "(ID: " + id + ", nombre: " + nombre + "tipo: " + tipoHabitacion + ", precio: " + precio + ")";
     }

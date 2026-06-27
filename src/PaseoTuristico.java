@@ -32,6 +32,10 @@ public class PaseoTuristico implements Reservable{
         this.plazasDisponibles = plazas;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String toString() {
         return "(ID: " + id + ", nombre: " + nombre + ", cantidad de plazas: " + plazasDisponibles + ", precio: " + precio + ")";
     }

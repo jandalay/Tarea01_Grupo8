@@ -10,7 +10,6 @@ public class InterfazUsuario {
         try {
             String user1 = scanner.nextLine();
             String[] usuarioDatos = user1.split("/");
-            scanner.close();
             return new Usuario(usuarioDatos[0], usuarioDatos[1], usuarioDatos[2]);
         }
         catch (Exception e) {

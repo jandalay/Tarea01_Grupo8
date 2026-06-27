@@ -8,6 +8,7 @@ public class TravelStay {
     
     //PRUEBA
     public static void main(String[] args) {
+        //SIMULAR UN USUARIO
         List<Reservable> lista = new ArrayList<>();
         lista.add(new Hospedaje("A024", "Hospedaje_ABC", "TIPO A", 500));
         lista.add(new PaseoTuristico("B068", "Paseo_PAI", 9, 340));
@@ -21,6 +22,17 @@ public class TravelStay {
         Reserva reserva = new Reserva(usuario, lista);
 
         InterfazReserva.mostrarReserva(reserva);
+
+        //SIMULAR UN REPORTE DE INCIDENTE
+        AgenteSoporte agente1 = new AgenteSoporte("Alex", "alex1992@mail.com", "06572938224", "passw4rd");
+
+        Incidente incidente1 = InterfazIncidente.reportarIncidente(usuario);
+        
+        agente1.gestionarIncidente(incidente1);
+
+       InterfazIncidente.reportarSoporte(usuario, reserva, agente1);
+
+        
 
 
     }

@@ -1,3 +1,5 @@
+//ESTA CLASE ES PARA SIMULAR TRAVELSTAY
+
 import java.util.Iterator;
 
 public class InterfazReserva {
