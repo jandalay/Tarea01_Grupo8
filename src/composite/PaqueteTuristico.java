@@ -1,8 +1,11 @@
-import java.util.List;
-import java.util.Iterator;
+package composite;
 
+import java.util.ArrayList;
+import java.util.List;
+import interfaces.Reservable;
 
 public class PaqueteTuristico implements Reservable {
+
     private String id;
     private String nombre;
     private double descuento;
@@ -12,52 +15,58 @@ public class PaqueteTuristico implements Reservable {
         this.id = id;
         this.nombre = nombre;
         this.descuento = descuento;
-        this.items = items;
+        this.items = (items != null) ? items : new ArrayList<>();
     }
 
+    public PaqueteTuristico(String id, String nombre, double descuento) {
+        this(id, nombre, descuento, new ArrayList<>());
+    }
+
+    @Override
     public double calcularPrecio() {
         double sumaPrecios = 0.0;
-        Iterator<Reservable> iterator = items.iterator();
-        while (iterator.hasNext()) {
-            sumaPrecios += iterator.next().calcularPrecio();
+        for (Reservable item : items) {
+            sumaPrecios += item.calcularPrecio();
         }
-
-        return sumaPrecios - sumaPrecios*(descuento/100.0);
+        return sumaPrecios - (sumaPrecios * (descuento / 100.0));
     }
 
+    @Override
     public boolean verificarDisponibilidad() {
         if (items.isEmpty()) {
             return false;
         }
-
-        Iterator<Reservable> iterator = items.iterator();
-        while (iterator.hasNext()) {
-            /* Si al menos un item no está disponible entonces no
-            tiene disponibilidad */
-            if (!iterator.next().verificarDisponibilidad()) {
+        for (Reservable item : items) {
+            if (!item.verificarDisponibilidad()) {
                 return false;
             }
         }
-
         return true;
     }
 
+    @Override
+    public void reservar() {
+        for (Reservable item : items) {
+            item.reservar();
+        }
+    }
+
     public void agregarItem(Reservable item) {
-        items.add(item);
+        if (item != null) {
+            items.add(item);
+        }
     }
 
     public void eliminarItem(Reservable item) {
         if (items.contains(item)) {
             items.remove(item);
-        }
-        else {
+        } else {
             System.out.println("Reserva no encontrada");
         }
     }
 
+    @Override
     public String toString() {
-        return "(ID: "+ id + ", nombre: " + nombre + ", descuento: " + descuento + " - Contiene: " + items + ")";
+        return "(ID: " + id + ", nombre: " + nombre + ", descuento: " + descuento + "% - Contiene: " + items + ")";
     }
-
-
 }

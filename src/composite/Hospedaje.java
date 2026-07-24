@@ -1,4 +1,5 @@
 import enums.EstadoHabitacion;
+package src.interfaces;
 
 public class Hospedaje implements Reservable {
     
@@ -23,12 +24,14 @@ public class Hospedaje implements Reservable {
     
     @Override
     public boolean verificarDisponibilidad() {
-        if (estado == EstadoHabitacion.DISPONIBLE) {
-            return true;
-        }
-        return false;
+        return this.estado == EstadoHabitacion.DISPONIBLE;
     }
     
+    @Override
+    public void reservar() {
+        this.estado = EstadoHabitacion.RESERVADA;
+    }
+
     public void cambiarEstado(EstadoHabitacion estado) {
         this.estado = estado;
     }

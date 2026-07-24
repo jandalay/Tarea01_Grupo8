@@ -1,9 +1,10 @@
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.List;
-
+import composite.Reservable;
 import enums.EstadoReserva;
 
 public class Reserva {
+
     private String idReserva;
     private Usuario usuario;
     private List<Reservable> itemsReservados;
@@ -11,22 +12,19 @@ public class Reserva {
     private double total;
 
     public Reserva(Usuario usuario, List<Reservable> itemsReservados) {
-        //el id es un número aleatorio
-        this.idReserva = String.valueOf(Math.random()*1000.0);
+        this.idReserva = String.valueOf((int) (Math.random() * 10000));
         this.usuario = usuario;
-        this.itemsReservados = itemsReservados;
+        this.itemsReservados = (itemsReservados != null) ? itemsReservados : new ArrayList<>();
         this.estado = EstadoReserva.DISPONIBLE;
-        this();
+        this.total = calcularTotal();
     }
 
-    private Reserva() {
+    private double calcularTotal() {
         double sumaPrecios = 0.0;
-        Iterator<Reservable> iterator = itemsReservados.iterator();
-        while (iterator.hasNext()) {
-            sumaPrecios += iterator.next().calcularPrecio();
+        for (Reservable item : itemsReservados) {
+            sumaPrecios += item.calcularPrecio();
         }
-
-        total = sumaPrecios;
+        return sumaPrecios;
     }
 
     public void bloquearTemporalmente() {
@@ -34,11 +32,20 @@ public class Reserva {
     }
 
     public void confirmarReserva() {
-        if (estado == EstadoReserva.RESERVADO) {
+        if (this.estado == EstadoReserva.RESERVADO) {
             System.out.println("Ya ha sido reservado");
             return;
         }
+
         this.estado = EstadoReserva.RESERVADO;
+
+        for (Reservable item : itemsReservados) {
+            item.reservar();
+        }
+    }
+
+    public String getIdReserva() {
+        return idReserva;
     }
 
     public double getTotal() {
@@ -49,7 +56,11 @@ public class Reserva {
         return usuario;
     }
 
-    public List<Reservable> getItemsReservados(){
+    public List<Reservable> getItemsReservados() {
         return itemsReservados;
+    }
+
+    public EstadoReserva getEstado() {
+        return estado;
     }
 }

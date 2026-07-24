@@ -1,4 +1,5 @@
 import enums.EstadoPaseo;
+package src.interfaces;
 
 public class PaseoTuristico implements Reservable{
     private String id;
@@ -22,14 +23,24 @@ public class PaseoTuristico implements Reservable{
 
     @Override
     public boolean verificarDisponibilidad() {
-        if (estado == EstadoPaseo.DISPONIBLE) {
-            return true;
+        return this.estado == EstadoPaseo.DISPONIBLE && this.plazasDisponibles > 0;
+    }
+
+    @Override
+    public void reservar() {
+        if (verificarDisponibilidad()) {
+            this.plazasDisponibles--;
+            if (this.plazasDisponibles == 0) {
+                this.estado = EstadoPaseo.AGOTADO;
+            }
         }
-        return false;
     }
 
     public void ajustarInventario(int plazas) {
         this.plazasDisponibles = plazas;
+        if (this.plazasDisponibles > 0 && this.estado == EstadoPaseo.AGOTADO) {
+            this.estado = EstadoPaseo.DISPONIBLE;
+        }
     }
 
     public String getId() {
