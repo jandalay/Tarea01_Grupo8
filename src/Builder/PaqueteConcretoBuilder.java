@@ -1,10 +1,15 @@
 package Builder;
 
+import java.util.ArrayList;
+import java.util.List;
 import composite.PaqueteTuristico;
 import composite.Reservable;
 
 public class PaqueteConcretoBuilder implements PaqueteTuristicoBuilder {
-    private PaqueteTuristico paquete;
+    private String id;
+    private String nombre;
+    private double descuento;
+    private List<Reservable> items;
 
     public PaqueteConcretoBuilder() {
         this.reset();
@@ -12,37 +17,39 @@ public class PaqueteConcretoBuilder implements PaqueteTuristicoBuilder {
 
     @Override
     public void reset() {
-        String idGenerado = "PKG-" + (int)(Math.random() * 9000 + 1000);
-        this.paquete = new PaqueteTuristico(idGenerado, "Nuevo Paquete", 0.0);
+        this.id = "PKG-" + (int)(Math.random() * 9000 + 1000);
+        this.nombre = "Nuevo Paquete";
+        this.descuento = 0.0;
+        this.items = new ArrayList<>();
     }
 
     @Override
     public PaqueteTuristicoBuilder setId(String id) {
-        this.paquete.setId(id);
+        this.id = id;
         return this;
     }
 
     @Override
     public PaqueteTuristicoBuilder setNombre(String nombre) {
-        this.paquete.setNombre(nombre);
+        this.nombre = nombre;
         return this;
     }
 
     @Override
     public PaqueteTuristicoBuilder setDescuento(double descuento) {
-        this.paquete.setDescuento(descuento);
+        this.descuento = descuento;
         return this;
     }
 
     @Override
     public PaqueteTuristicoBuilder agregarItem(Reservable item) {
-        this.paquete.agregarItem(item);
+        this.items.add(item);
         return this;
     }
 
     @Override
     public PaqueteTuristico build() {
-        PaqueteTuristico resultado = this.paquete;
+        PaqueteTuristico resultado = new PaqueteTuristico(this.id, this.nombre, this.descuento, this.items);
         this.reset();
         return resultado;
     }
