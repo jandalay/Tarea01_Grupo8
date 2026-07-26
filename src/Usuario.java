@@ -6,9 +6,8 @@ public class Usuario {
     private String email;
     private String telefono;
 
-    public Usuario(String nombre, String email, String telefono) {
-        //El id es un número aleatorio
-        this.id = String.valueOf((int)(Math.random()*1000.0));
+    public Usuario(String id, String nombre, String email, String telefono) {
+        this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
@@ -23,16 +22,11 @@ public class Usuario {
         if (this == o) {
             return true;
         }
-        if (o == null || this.getClass() != o.getClass()) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
         Usuario otro = (Usuario) o;
-        if (Objects.equals(this.nombre, otro.nombre) && Objects.equals(this.id, otro.id) && Objects.equals(email, otro.email) && Objects.equals(telefono, otro.telefono)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return Objects.equals(id, otro.id) && Objects.equals(nombre, otro.nombre) && Objects.equals(email, otro.email) && Objects.equals(telefono, otro.telefono);
     }
 
     //getters y setters

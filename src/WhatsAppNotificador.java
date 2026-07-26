@@ -11,11 +11,13 @@ public class WhatsAppNotificador implements Notificador {
 
     @Override
     public void enviarNotificacion(Usuario usuario, String mensaje) {
-        if (!listaUsuarios.contains(usuario)) {
-            System.out.println("El usuario " + usuario.getNombre() + " no está suscrito a las notificaciones por WhatsApp.");
-            return;
+        for (Usuario u : listaUsuarios) {
+            if (u.equals(usuario)) {
+                listaUsuarios.get(listaUsuarios.indexOf(u)).recibirNotificacion(mensaje);
+                return;
+            }
         }
-        listaUsuarios.get(listaUsuarios.indexOf(usuario)).recibirNotificacion(mensaje);
+        throw new IllegalArgumentException("El usuario " + usuario.getNombre() + " no está suscrito a las notificaciones por WhatsApp.");
     }
 
     @Override

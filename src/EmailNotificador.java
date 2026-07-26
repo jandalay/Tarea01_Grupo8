@@ -6,11 +6,11 @@ public class EmailNotificador implements Notificador {
     
     @Override
     public void enviarNotificacion(Usuario usuario, String mensaje) {
-        if (!usuariosSuscritos.contains(usuario)) {
-            System.out.println("El usuario " + usuario.getNombre() + " no está suscrito a las notificaciones por correo electrónico.");
+        if (usuariosSuscritos.contains(usuario)) {
+            System.out.println("Mensaje para: " + usuario.getNombre() + "\nMensaje: " + mensaje);
             return;
         }
-        System.out.println("Mensaje para: " + usuario.getNombre() + "\nMensaje: " + mensaje);
+        throw new IllegalArgumentException("El usuario " + usuario.getNombre() + " no está suscrito a las notificaciones por correo electrónico.");
     }
 //Completada verificacion y envio de mensaje
     @Override
