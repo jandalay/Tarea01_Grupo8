@@ -37,7 +37,7 @@ public class WhatsAppNotificador implements Notificador {
         for (Usuario u : listaUsuarios) {
             if (u.equals(usuario)) {
                 listaUsuarios.remove(listaUsuarios.indexOf(u));
-                System.out.println("Usuario " + usuario + " ha sido removido.");
+                System.out.println("Usuario [" + usuario + "] ha sido removido.");
                 return;
             }
         }

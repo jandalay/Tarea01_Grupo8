@@ -8,7 +8,7 @@ public class Usuario {
 
     public Usuario(String nombre, String email, String telefono) {
         //El id es un número aleatorio
-        this.id = String.valueOf(Math.random()*1000.0);
+        this.id = String.valueOf((int)(Math.random()*1000.0));
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
