@@ -1,4 +1,4 @@
 
 public interface Notificador {
-    void enviarNotificacion(Usuario usuario, String mensaje);
+    void enviarNotificacion(Consumidor usuario, String mensaje);
 }
