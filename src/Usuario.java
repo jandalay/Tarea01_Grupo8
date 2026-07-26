@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Usuario {
     private String id;
     private String nombre;
@@ -10,6 +12,27 @@ public class Usuario {
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
+    }
+
+    public void recibirNotificacion(String mensaje) {
+        System.out.println("[Notificación] " + mensaje);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Usuario otro = (Usuario) o;
+        if (Objects.equals(this.nombre, otro.nombre) && Objects.equals(this.id, otro.id) && Objects.equals(email, otro.email) && Objects.equals(telefono, otro.telefono)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     //getters y setters
@@ -36,6 +59,11 @@ public class Usuario {
     }
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return nombre + "(" + id + ")";
     }
 
 }
