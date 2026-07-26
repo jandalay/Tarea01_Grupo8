@@ -1,3 +1,5 @@
+import composite.Usuario;
+
 public class Consumidor extends Usuario {
 
     public Consumidor(String id, String nombre, String email, String telefono) {

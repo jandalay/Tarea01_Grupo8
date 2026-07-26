@@ -1,5 +1,8 @@
+package Observer;
 import java.util.ArrayList;
 import java.util.List;
+
+import composite.Usuario;
 //Revisar el importe y la verificacion del usuario
 public class EmailNotificador implements Notificador {
     private final List<Usuario> usuariosSuscritos = new ArrayList<>();

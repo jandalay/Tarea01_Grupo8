@@ -1,3 +1,5 @@
+import composite.Usuario;
+
 public class Incidente implements Comparable<Incidente> {
     
     private int prioridad;
