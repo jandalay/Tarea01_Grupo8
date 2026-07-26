@@ -9,9 +9,9 @@ import composite.PaseoTuristico;
 import composite.Reservable;
 import composite.Reserva;
 import composite.Usuario;
-import Observer.EmailNotificador;
-import Observer.Notificador;
-import Observer.WhatsAppNotificador;
+import observer.EmailNotificador;
+import observer.Notificador;
+import observer.WhatsAppNotificador;
 
 public class TravelStay {
 
@@ -21,7 +21,7 @@ public class TravelStay {
         
 
         // 1. Crear Usuario
-        Usuario usuario1 = new Usuario("Maria Pacha", "maria@mail.com", "0999999999");
+        Usuario usuario1 = new Usuario("A1", "Maria Pacha", "maria@mail.com", "0999999999");
 
         // 2. Probar Patrón OBSERVER (Suscripciones)
         System.out.println("\n---> 1. PROBANDO PATRÓN OBSERVER");

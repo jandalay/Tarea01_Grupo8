@@ -10,8 +10,8 @@ public class AgenteSoporte extends Usuario {
     private Reservable tipoProblema;
     private PriorityQueue<Incidente> incidentes;
 
-    public AgenteSoporte(String nombre, String email, String telefono, String password) {
-        super(nombre, email, telefono);
+    public AgenteSoporte(String id, String nombre, String email, String telefono, String password) {
+        super(id, nombre, email, telefono);
         this.password = password;
         this.incidentes = new PriorityQueue<>();
     }
