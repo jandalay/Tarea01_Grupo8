@@ -43,4 +43,9 @@ public class EmailNotificador implements Notificador {
         System.out.println("Usuario " + usuario.getNombre() + " ha sido eliminado.");
 
     }
+    public List<Usuario> getListaUsuarios() {
+        return usuariosSuscritos;
+    }
+
+    
 }

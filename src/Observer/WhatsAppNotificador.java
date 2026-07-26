@@ -48,4 +48,9 @@ public class WhatsAppNotificador implements Notificador {
         
     }
 
+    @Override
+    public List<Usuario> getListaUsuarios() {
+        return listaUsuarios;
+    }
+
 }

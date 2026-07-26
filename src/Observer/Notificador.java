@@ -1,4 +1,6 @@
 package observer;
+import java.util.List;
+
 import composite.Usuario;
 
 public interface Notificador {
@@ -10,4 +12,6 @@ public interface Notificador {
     
     void agregarUsuario(Usuario usuario);
     void removerUsuario(Usuario usuario);
+
+    List<Usuario> getListaUsuarios();
 }

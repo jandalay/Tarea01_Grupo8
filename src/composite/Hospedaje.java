@@ -9,11 +9,11 @@ public class Hospedaje implements Reservable {
     private EstadoHabitacion estado;
     private double precio;
 
-    public Hospedaje(String id, String nombre, String tipoHabitacion, double precio) {
+    public Hospedaje(String id, String nombre, String tipoHabitacion, EstadoHabitacion estado, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.tipoHabitacion = tipoHabitacion;
-        this.estado = EstadoHabitacion.DISPONIBLE;
+        this.estado = estado;
         this.precio = precio;
     }
 

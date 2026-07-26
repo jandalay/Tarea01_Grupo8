@@ -67,4 +67,20 @@ public class PaqueteTuristico implements Reservable {
     public String toString() {
         return "(ID: " + id + ", nombre: " + nombre + ", descuento: " + descuento + "% - Contiene: " + items + ")";
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public List<Reservable> getItems() {
+        return items;
+    }
 }

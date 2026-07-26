@@ -49,11 +49,11 @@ public class TravelStayPatternsTest {
     }
 
     // 2. PRUEBAS PARA EL PATRÓN BUILDER
-
     @Test
     @DisplayName("Builder: Construcción correcta de un Paquete Turístico")
     void testBuilderConstruccionPaquete() {
-        PaqueteTuristicoConcretoBuilder builder = new PaqueteTuristicoConcretoBuilder();
+        
+        PaqueteTuristicoConcretoBuilder builder = new PaqueteConcretoBuilder();
 
         PaqueteTuristico paqueteConstruido = builder
                 .setId("B1")
@@ -94,7 +94,7 @@ public class TravelStayPatternsTest {
         notificador.agregarUsuario(usuarioPrueba);
 
         assertDoesNotThrow(() -> {
-            notificador.enviarNotificacionMasiva("¡Tu reserva ha sido confirmada!");
+            notificador.enviarNotificacionMasivo("¡Tu reserva ha sido confirmada!");
         }, "El envío de notificaciones masivas no debe fallar ni lanzar excepciones.");
     }
 }

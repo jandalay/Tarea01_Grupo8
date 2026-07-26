@@ -5,7 +5,7 @@ import java.util.List;
 import composite.PaqueteTuristico;
 import composite.Reservable;
 
-public class PaqueteConcretoBuilder implements PaqueteTuristicoBuilder {
+public class PaqueteConcretoBuilder implements PaqueteTuristicoConcretoBuilder {
     private String id;
     private String nombre;
     private double descuento;
@@ -24,25 +24,25 @@ public class PaqueteConcretoBuilder implements PaqueteTuristicoBuilder {
     }
 
     @Override
-    public PaqueteTuristicoBuilder setId(String id) {
+    public PaqueteTuristicoConcretoBuilder setId(String id) {
         this.id = id;
         return this;
     }
 
     @Override
-    public PaqueteTuristicoBuilder setNombre(String nombre) {
+    public PaqueteTuristicoConcretoBuilder setNombre(String nombre) {
         this.nombre = nombre;
         return this;
     }
 
     @Override
-    public PaqueteTuristicoBuilder setDescuento(double descuento) {
+    public PaqueteTuristicoConcretoBuilder setDescuento(double descuento) {
         this.descuento = descuento;
         return this;
     }
 
     @Override
-    public PaqueteTuristicoBuilder agregarItem(Reservable item) {
+    public PaqueteTuristicoConcretoBuilder agregarItem(Reservable item) {
         this.items.add(item);
         return this;
     }

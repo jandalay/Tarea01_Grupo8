@@ -2,13 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Builder.PaqueteConcretoBuilder;
-import Builder.PaqueteTuristicoBuilder;
+import Builder.PaqueteTuristicoConcretoBuilder;
 import composite.Hospedaje;
 import composite.PaqueteTuristico;
 import composite.PaseoTuristico;
 import composite.Reservable;
 import composite.Reserva;
 import composite.Usuario;
+import enums.EstadoHabitacion;
+import enums.EstadoPaseo;
 import observer.EmailNotificador;
 import observer.Notificador;
 import observer.WhatsAppNotificador;
@@ -33,19 +35,19 @@ public class TravelStay {
 
         //  Patrón BUILDER (Construir paquete compuesto)
         System.out.println("\n---> 2. PROBANDO PATRÓN BUILDER");
-        PaqueteTuristicoBuilder builder = new PaqueteConcretoBuilder();
+        PaqueteTuristicoConcretoBuilder builder = new PaqueteConcretoBuilder();
         PaqueteTuristico paqueteCombo = builder
                 .setId("PKG-777")
                 .setNombre("Paquete Galápagos Express")
                 .setDescuento(15.0)
-                .agregarItem(new Hospedaje("H01", "Hotel Playa", "Familiar", 200.0))
-                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, 80.0))
+                .agregarItem(new Hospedaje("H01", "Hotel Playa", "Familiar", EstadoHabitacion.DISPONIBLE, 200.0))
+                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, EstadoPaseo.DISPONIBLE, 80.0))
                 .build();
 
         // Patrón COMPOSITE (Calcular precios y reservas)
         System.out.println("\n---> 3. PROBANDO PATRÓN COMPOSITE");
         List<Reservable> itemsReserva = new ArrayList<>();
-        itemsReserva.add(new Hospedaje("H02", "Hotel Resort", "Suite", 300.0));
+        itemsReserva.add(new Hospedaje("H02", "Hotel Resort", "Suite", EstadoHabitacion.DISPONIBLE, 300.0));
         itemsReserva.add(paqueteCombo); // Metemos el paquete (que adentro tiene más items)
 
         Reserva reserva = new Reserva(usuario1, itemsReserva);
