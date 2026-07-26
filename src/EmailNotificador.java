@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 //Revisar el importe y la verificacion del usuario
 public class EmailNotificador implements Notificador {
     private final List<Usuario> usuariosSuscritos = new ArrayList<>();
@@ -19,6 +19,7 @@ public class EmailNotificador implements Notificador {
             enviarNotificacion(usuario, mensaje);
         }
     }
+//Revisar la verificacion de usuario y envio de mensaje 
     @Override
     public void agregarUsuario(Usuario usuario) {
         if(usuariosSuscritos.contains(usuario)) {
