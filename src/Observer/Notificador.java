@@ -1,3 +1,5 @@
+package Observer;
+import composite.Usuario;
 
 public interface Notificador {
     //un mensaje para un usuario

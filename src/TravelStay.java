@@ -1,39 +1,62 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import Builder.PaqueteConcretoBuilder;
+import Builder.PaqueteTuristicoBuilder;
+import composite.Hospedaje;
+import composite.PaqueteTuristico;
+import composite.PaseoTuristico;
+import composite.Reservable;
+import composite.Reserva;
+import composite.Usuario;
+import Observer.EmailNotificador;
+import Observer.Notificador;
+import Observer.WhatsAppNotificador;
 
 public class TravelStay {
 
-    private static Usuario usuario;
-    
-    //PRUEBA
     public static void main(String[] args) {
-        //SIMULAR UN USUARIO
-        List<Reservable> lista = new ArrayList<>();
-        lista.add(new Hospedaje("A024", "Hospedaje_ABC", "TIPO A", 500));
-        lista.add(new PaseoTuristico("B068", "Paseo_PAI", 9, 340));
-        lista.add(new PaqueteTuristico("C909", "Paquete_PXP", 25, 
-        Arrays.asList(new Hospedaje("A107", "Hospedaje_DFA", "TIPO B", 430), 
-        new PaseoTuristico("B702", "Paseo_DGE", 5, 120))));
-
-
-        usuario = InterfazUsuario.mostrarInterfazUsuario();
-
-        Reserva reserva = new Reserva(usuario, lista);
-
-        InterfazReserva.mostrarReserva(reserva);
-
-        //SIMULAR UN REPORTE DE INCIDENTE
-        AgenteSoporte agente1 = new AgenteSoporte("Alex", "alex1992@mail.com", "06572938224", "passw4rd");
-
-        Incidente incidente1 = InterfazIncidente.reportarIncidente(usuario);
-        
-        agente1.gestionarIncidente(incidente1);
-
-       InterfazIncidente.reportarSoporte(usuario, reserva, agente1);
-
+        System.out.println("==========================================");
+        System.out.println("       DEMO SISTEMA TRAVELSTAY            ");
         
 
+        // 1. Crear Usuario
+        Usuario usuario1 = new Usuario("Maria Pacha", "maria@mail.com", "0999999999");
 
+        // 2. Probar Patrón OBSERVER (Suscripciones)
+        System.out.println("\n---> 1. PROBANDO PATRÓN OBSERVER");
+        Notificador emailNotif = new EmailNotificador();
+        Notificador wsNotif = new WhatsAppNotificador();
+
+        emailNotif.agregarUsuario(usuario1);
+        wsNotif.agregarUsuario(usuario1);
+
+        //  Patrón BUILDER (Construir paquete compuesto)
+        System.out.println("\n---> 2. PROBANDO PATRÓN BUILDER");
+        PaqueteTuristicoBuilder builder = new PaqueteConcretoBuilder();
+        PaqueteTuristico paqueteCombo = builder
+                .setId("PKG-777")
+                .setNombre("Paquete Galápagos Express")
+                .setDescuento(15.0)
+                .agregarItem(new Hospedaje("H01", "Hotel Playa", "Familiar", 200.0))
+                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, 80.0))
+                .build();
+
+        // Patrón COMPOSITE (Calcular precios y reservas)
+        System.out.println("\n---> 3. PROBANDO PATRÓN COMPOSITE");
+        List<Reservable> itemsReserva = new ArrayList<>();
+        itemsReserva.add(new Hospedaje("H02", "Hotel Resort", "Suite", 300.0));
+        itemsReserva.add(paqueteCombo); // Metemos el paquete (que adentro tiene más items)
+
+        Reserva reserva = new Reserva(usuario1, itemsReserva);
+
+        System.out.println("Reserva ID: " + reserva.getIdReserva());
+        System.out.println("Cliente: " + reserva.getUsuario().getNombre());
+        System.out.println("Total a pagar: $" + reserva.getTotal());
+
+        // Enviar Notificación al confirmar
+        System.out.println("\n---> 4. ENVIANDO NOTIFICACIONES");
+        emailNotif.enviarNotificacion(usuario1, "Tu reserva " + reserva.getIdReserva() + " ha sido confirmada con éxito.");
+        wsNotif.enviarNotificacion(usuario1, "¡Tu viaje está listo! Total abonado: $" + reserva.getTotal());
     }
 }

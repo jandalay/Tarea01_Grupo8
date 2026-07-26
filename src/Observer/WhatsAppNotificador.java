@@ -1,5 +1,8 @@
+package Observer;
 import java.util.ArrayList;
 import java.util.List;
+
+import composite.Usuario;
 
 public class WhatsAppNotificador implements Notificador {
 

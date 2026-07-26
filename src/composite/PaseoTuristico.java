@@ -1,7 +1,8 @@
-import enums.EstadoPaseo;
-package src.interfaces;
+package composite;
 
-public class PaseoTuristico implements Reservable{
+import enums.EstadoPaseo;
+
+public class PaseoTuristico implements Reservable {
     private String id;
     private String nombre;
     private int plazasDisponibles;
@@ -47,6 +48,7 @@ public class PaseoTuristico implements Reservable{
         return id;
     }
 
+    @Override
     public String toString() {
         return "(ID: " + id + ", nombre: " + nombre + ", cantidad de plazas: " + plazasDisponibles + ", precio: " + precio + ")";
     }

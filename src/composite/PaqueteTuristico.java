@@ -2,10 +2,8 @@ package composite;
 
 import java.util.ArrayList;
 import java.util.List;
-import interfaces.Reservable;
 
 public class PaqueteTuristico implements Reservable {
-
     private String id;
     private String nombre;
     private double descuento;

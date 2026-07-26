@@ -1,10 +1,9 @@
+package composite;
 import java.util.ArrayList;
 import java.util.List;
-import composite.Reservable;
 import enums.EstadoReserva;
 
 public class Reserva {
-
     private String idReserva;
     private Usuario usuario;
     private List<Reservable> itemsReservados;
