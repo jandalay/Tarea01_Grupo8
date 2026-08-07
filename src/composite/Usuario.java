@@ -19,6 +19,7 @@ public class Usuario {
         System.out.println("[Notificación] " + mensaje);
     }
 
+    //Revisar Posible code Smells con if/else de mas
     @Override
     public boolean equals(Object o) {
         if (this == o) {
