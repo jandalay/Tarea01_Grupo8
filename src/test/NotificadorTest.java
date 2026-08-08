@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThrows;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
-import Observer.*;
+import observer.*;
 import composite.*;
 
 public class NotificadorTest {

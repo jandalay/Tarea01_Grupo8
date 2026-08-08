@@ -2,7 +2,7 @@ package composite;
 import java.util.ArrayList;
 import java.util.List;
 
-import Observer.Notificador;
+import observer.Notificador;
 import enums.EstadoReserva;
 
 

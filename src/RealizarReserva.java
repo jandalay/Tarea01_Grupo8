@@ -1,6 +1,6 @@
 import composite.PagoService;
 import composite.Reserva;
-import Observer.Notificador;
+import observer.Notificador;
 
 
 public class RealizarReserva {
