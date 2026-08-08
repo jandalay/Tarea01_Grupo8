@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import composite.*;
 import enums.*;
-import observer.*;
+import Observer.*;
 import Builder.*;
 
 public class TravelStayPatternsTest {
