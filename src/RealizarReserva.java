@@ -1,3 +1,4 @@
+import composite.PagoService;
 import composite.Reserva;
 import Observer.Notificador;
 
@@ -11,12 +12,7 @@ public class RealizarReserva {
         this.pagoService = pagoService;
     }
 
-    public void procesar(Reserva reserva) {
-        if (pagoService.procesarPago(reserva.getTotal())) {
-            notificador.enviarNotificacion(reserva.getUsuario(), "El pago ha sido procesado");
-            reserva.confirmarReserva();
-        } else {
-            System.out.println("No es posible procesar el pago.");
-        }
+ public void procesar(Reserva reserva) {
+        reserva.procesarPagoYConfirmar(this.pagoService, this.notificador);
     }
 }

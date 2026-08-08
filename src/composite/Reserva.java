@@ -1,7 +1,11 @@
 package composite;
 import java.util.ArrayList;
 import java.util.List;
+
+import Observer.Notificador;
 import enums.EstadoReserva;
+
+
 
 public class Reserva {
     private String idReserva;
@@ -16,6 +20,17 @@ public class Reserva {
         this.itemsReservados = (itemsReservados != null) ? itemsReservados : new ArrayList<>();
         this.estado = EstadoReserva.DISPONIBLE;
         this.total = calcularTotal();
+    }
+
+
+    public boolean procesarPagoYConfirmar(PagoService pagoService, Notificador notificador) {
+        if (pagoService.procesarPago(this.getTotal())) {
+            notificador.enviarNotificacion(this.getUsuario(), "El pago ha sido procesado");
+            this.confirmarReserva();
+            return true;
+        }
+        System.out.println("No es posible procesar el pago.");
+        return false;
     }
 
     private double calcularTotal() {

@@ -9,13 +9,14 @@ public class PaseoTuristico implements Reservable {
     private EstadoPaseo estado;
     private double precio;
 
-    public PaseoTuristico(String id, String nombre, int plazasDisponibles, EstadoPaseo estado, double precio) {
-        this.id = id;
-        this.nombre = nombre;
-        this.plazasDisponibles = plazasDisponibles;
-        this.estado = estado;
-        this.precio = precio;
-    }
+ // Se elimina el parámetro 'estado' para simplificar la lista de parámetros
+public PaseoTuristico(String id, String nombre, int plazasDisponibles, double precio) {
+    this.id = id;
+    this.nombre = nombre;
+    this.plazasDisponibles = plazasDisponibles;
+    this.precio = precio;
+    this.estado = EstadoPaseo.DISPONIBLE; // El valor inicial se resuelve internamente
+}
 
     @Override
     public double calcularPrecio() {
