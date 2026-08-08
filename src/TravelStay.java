@@ -11,9 +11,9 @@ import composite.Reserva;
 import composite.Usuario;
 import enums.EstadoHabitacion;
 import enums.EstadoPaseo;
-import observer.EmailNotificador;
-import observer.Notificador;
-import observer.WhatsAppNotificador;
+import Observer.EmailNotificador;
+import Observer.Notificador;
+import Observer.WhatsAppNotificador;
 
 public class TravelStay {
 

@@ -1,5 +1,5 @@
 import composite.Reserva;
-import observer.Notificador;
+import Observer.Notificador;
 
 
 public class RealizarReserva {
