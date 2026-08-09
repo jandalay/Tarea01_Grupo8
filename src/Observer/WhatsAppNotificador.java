@@ -16,15 +16,16 @@ public class WhatsAppNotificador implements Notificador {
     public void enviarNotificacion(Usuario usuario, String mensaje) {
         if (!listaUsuarios.contains(usuario)) {
             System.out.println("El usuario " + usuario.getNombre() + " no está suscrito a las notificaciones por WhatsApp.");
-            return;
         }
-        listaUsuarios.get(listaUsuarios.indexOf(usuario)).recibirNotificacion(mensaje);
+        else {
+            listaUsuarios.get(listaUsuarios.indexOf(usuario)).recibirNotificacion(mensaje);
+        }
     }
 
     @Override
     public void enviarNotificacionMasivo(String mensaje) {
-        for (Usuario u : listaUsuarios) {
-            u.recibirNotificacion("**WhatsApp** " + mensaje);
+        for (Usuario usuario : listaUsuarios) {
+            usuario.recibirNotificacion("**WhatsApp** " + mensaje);
         }
     }
 
@@ -37,15 +38,12 @@ public class WhatsAppNotificador implements Notificador {
 
     @Override
     public void removerUsuario(Usuario usuario) {
-        for (Usuario u : listaUsuarios) {
-            if (u.equals(usuario)) {
-                listaUsuarios.remove(listaUsuarios.indexOf(u));
-                System.out.println("Usuario " + usuario + " ha sido removido.");
-                return;
+            if (!listaUsuarios.remove(usuario)) {
+                System.out.println("No existe ese usuario");
             }
-        }
-        System.out.println("No existe ese usuario");
-        
+            else {
+                System.out.println("Usuario " + usuario + " ha sido removido.");
+            }
     }
 
     @Override

@@ -12,6 +12,5 @@ public interface Notificador {
     
     void agregarUsuario(Usuario usuario);
     void removerUsuario(Usuario usuario);
-
     List<Usuario> getListaUsuarios();
 }

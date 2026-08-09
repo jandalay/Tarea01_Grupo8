@@ -76,6 +76,7 @@ public class NotificadorTest {
 
     @Test
     public void WhatsappValido() {
+        
         notificadorWhatsapp.removerUsuario(new Usuario("A1", "Andrés", "andre04@mail.com", "+593123"));
 
         //mensaje individual
@@ -88,6 +89,8 @@ public class NotificadorTest {
 
     @Test
     public void EmailValido() {
+
+        notificadorEmail.removerUsuario(new Usuario("E1", "Ortega", "jacinto_ortega@mail.com", "+593456"));
 
         //mensaje individual
         Usuario usuarioEnviado = new Usuario("A3", "Lopez", "lopez_obrador@mail.com", "+593246");
