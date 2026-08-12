@@ -6,7 +6,7 @@ import composite.Usuario;
 
 public class WhatsAppNotificador implements Notificador {
 
-    private final List<Usuario> listaUsuarios;
+    private List<Usuario> listaUsuarios;
 
     public WhatsAppNotificador() {
         listaUsuarios = new ArrayList<>();
