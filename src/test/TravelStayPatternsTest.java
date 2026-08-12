@@ -19,7 +19,7 @@ public class TravelStayPatternsTest {
     void setUp() {
         usuarioPrueba = new Usuario("U1", "Maria Pacha", "maria@mail.com", "0991234567");
         hotelPrueba = new Hospedaje("H1", "Hotel San José", "Doble", EstadoHabitacion.DISPONIBLE, 100.0);
-        paseoPrueba = new PaseoTuristico("P1", "Tour Galápagos", 10, EstadoPaseo.DISPONIBLE, 50.0);
+        paseoPrueba = new PaseoTuristico("P1", "Tour Galápagos", 10, 50.0);
     }
 
     // 1. PRUEBAS PARA EL PATRÓN COMPOSITE

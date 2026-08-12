@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import Observer.Notificador;
-import Observer.WhatsAppNotificador;
+import observer.Notificador;
+import observer.WhatsAppNotificador;
 
 import org.junit.jupiter.api.DisplayName;
 

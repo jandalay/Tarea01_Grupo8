@@ -41,7 +41,7 @@ public class TravelStay {
                 .setNombre("Paquete Galápagos Express")
                 .setDescuento(15.0)
                 .agregarItem(new Hospedaje("H01", "Hotel Playa", "Familiar", EstadoHabitacion.DISPONIBLE, 200.0))
-                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, EstadoPaseo.DISPONIBLE, 80.0))
+                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, 80.0))
                 .build();
 
         // Patrón COMPOSITE (Calcular precios y reservas)
