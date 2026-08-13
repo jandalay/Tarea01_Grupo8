@@ -8,22 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import observer.*;
 import composite.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class NotificadorTest {
-    Notificador notificadorEmail;
-    Notificador notificadorWhatsapp;
+    private final Notificador notificadorEmail = new EmailNotificador();
+    private final Notificador notificadorWhatsapp = new WhatsAppNotificador();
     
-    @Test
-    @DisplayName("test valido en notificación de WhatsApp")
     @BeforeEach
-    public void agregarDatosParaTests() {
-        
-        if (notificadorEmail == null) {
-            notificadorEmail = new EmailNotificador();
-        }
-        if (notificadorWhatsapp == null) {
-            notificadorWhatsapp = new WhatsAppNotificador();
-        }
+    void agregarDatosParaTests() {
         
         //notificadorEmail
         Usuario usuario1 = new Usuario("E1", "Ortega", "jacinto_ortega@mail.com", "+593456");
@@ -44,7 +36,6 @@ public class NotificadorTest {
     }
 
     @Test
-    @AfterEach
     public void EmailError() {
     
         Usuario usuarioEnviado = new Usuario("E9", "Moran", "moran_bonilla@mail.com", "+593987");
@@ -57,6 +48,7 @@ public class NotificadorTest {
     }
 
     @Test
+    @DisplayName("Error")
     public void whatsappError() {
 
         Usuario usuarioEnviado = new Usuario("B2026", "Manuel", "manuel_cuenca@mail.com", "+593135");
@@ -98,6 +90,7 @@ public class NotificadorTest {
 
         //mensaje a todos
         notificadorEmail.enviarNotificacionMasivo("Se informa a todos un...");
+
     }
 
 }
