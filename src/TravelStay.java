@@ -21,8 +21,6 @@ public class TravelStay {
         System.out.println("==========================================");
         System.out.println("       DEMO SISTEMA TRAVELSTAY            ");
         
-
-        // 1. Crear Usuario
         Usuario usuario1 = new Usuario("A1", "Maria Pacha", "maria@mail.com", "0999999999");
 
         // 2. Probar Patrón OBSERVER (Suscripciones)
@@ -41,7 +39,7 @@ public class TravelStay {
                 .setNombre("Paquete Galápagos Express")
                 .setDescuento(15.0)
                 .agregarItem(new Hospedaje("H01", "Hotel Playa", "Familiar", EstadoHabitacion.DISPONIBLE, 200.0))
-                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, EstadoPaseo.DISPONIBLE, 80.0))
+                .agregarItem(new PaseoTuristico("P01", "Tour de Buceo", 10, 80.0))
                 .build();
 
         // Patrón COMPOSITE (Calcular precios y reservas)

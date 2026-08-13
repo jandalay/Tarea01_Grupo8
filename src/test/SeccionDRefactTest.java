@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-
-import Observer.Notificador;
-import Observer.WhatsAppNotificador;
-
 import org.junit.jupiter.api.DisplayName;
 
 import composite.PagoService;
@@ -19,6 +15,8 @@ import composite.Reservable;
 import composite.Usuario;
 import enums.EstadoPaseo;
 import enums.EstadoReserva;
+import observer.Notificador;
+import observer.WhatsAppNotificador;
 
 public class SeccionDRefactTest {
 
