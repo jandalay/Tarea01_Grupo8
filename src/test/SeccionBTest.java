@@ -147,4 +147,16 @@ public class SeccionBTest {
         // ASERCIÓN TYPE: assertNotEquals
         assertNotEquals(EstadoReserva.RESERVADO, reserva.getEstado(), "El estado no debe ser RESERVADO si el pago falla");
     }
+
+    @Test
+    @DisplayName("TC-10: Verificar si una reserva se ha bloqueado")
+    void testTC10_bloquearTemporalmente() {
+        Usuario usuario = new Usuario("01", "Nicolas", "nicolas1989@email.com", "093456789");
+        Reserva reserva = new Reserva(usuario, new java.util.ArrayList<Reservable>());
+
+        reserva.bloquearTemporalmente();
+
+        assertNotNull(reserva.getEstado(), "El estado de la reserva no debe ser nulo");
+        assertEquals(EstadoReserva.BLOQUEADO, reserva.getEstado(), "El estado de la reserva debe ser BLOQUEADO");
+    }
  }
