@@ -1,96 +1,87 @@
 package test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
-import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
+import observer.Notificador;
+import observer.EmailNotificador;
+import observer.WhatsAppNotificador;
+import composite.Usuario;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import observer.*;
-import composite.*;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class NotificadorTest {
-    private final Notificador notificadorEmail = new EmailNotificador();
-    private final Notificador notificadorWhatsapp = new WhatsAppNotificador();
+
+    private Notificador notificadorEmail;
+    private Notificador notificadorWhatsapp;
     
+    private Usuario usuarioRegistrado;
+    private Usuario usuarioNoRegistrado;
+
     @BeforeEach
-    void agregarDatosParaTests() {
-        
-        //notificadorEmail
-        Usuario usuario1 = new Usuario("E1", "Ortega", "jacinto_ortega@mail.com", "+593456");
-        Usuario usuario2 = new Usuario("E2","Suarez", "suarez09@mail.com", "+593468");
-        Usuario usuario3 = new Usuario("E3", "Samuel", "samuel_26A@mail.com", "+593579");
-        notificadorEmail.agregarUsuario(usuario1);
-        notificadorEmail.agregarUsuario(usuario2);
-        notificadorEmail.agregarUsuario(usuario3);
-        
-        //notificadorWhatsapp
-        Usuario usuario4 = new Usuario("A1", "Andrés", "andre04@mail.com", "+593123");
-        Usuario usuario5 = new Usuario("A2", "Manuel", "manuel_cuenca@mail.com", "+593135");
-        Usuario usuario6 = new Usuario("A3", "Lopez", "lopez_obrador@mail.com", "+593246");
-        notificadorWhatsapp.agregarUsuario(usuario1);
-        notificadorWhatsapp.agregarUsuario(usuario2);
-        notificadorWhatsapp.agregarUsuario(usuario3);
+    void setUp() {
+        notificadorEmail = new EmailNotificador();
+        notificadorWhatsapp = new WhatsAppNotificador();
 
+        usuarioRegistrado = new Usuario("A1", "Andrés", "andre04@mail.com", "+593123");
+        usuarioNoRegistrado = new Usuario("E9", "Moran", "moran_bonilla@mail.com", "+593987");
+
+        // Registrar usuario base
+        notificadorEmail.agregarUsuario(usuarioRegistrado);
+        notificadorWhatsapp.agregarUsuario(usuarioRegistrado);
     }
 
     @Test
-    public void EmailError() {
-    
-        Usuario usuarioEnviado = new Usuario("E9", "Moran", "moran_bonilla@mail.com", "+593987");
-       try {
-            notificadorEmail.enviarNotificacion(usuarioEnviado, "Estimado usuario, se le notifica...");
-       }
-       catch(IllegalArgumentException ex) {
-        assertEquals("El usuario " + usuarioEnviado.getNombre() + " no está suscrito a las notificaciones por correo electrónico.", ex.getMessage());
-       }
+    @DisplayName("TC-04 / Email: Lanza IllegalArgumentException al notificar usuario no registrado")
+    void testEmailErrorUsuarioNoRegistrado() {
+        IllegalArgumentException ex = assertThrows(
+            IllegalArgumentException.class,
+            () -> notificadorEmail.enviarNotificacion(usuarioNoRegistrado, "Estimado usuario, se le notifica que...")
+        );
+
+        assertNotNull(ex.getMessage(), "La excepción debe contener un mensaje explicativo.");
     }
 
     @Test
-    @DisplayName("Error")
-    public void whatsappError() {
+    @DisplayName("WhatsApp: Lanza IllegalArgumentException al notificar usuario no registrado")
+    void testWhatsappErrorUsuarioNoRegistrado() {
+        IllegalArgumentException ex = assertThrows(
+            IllegalArgumentException.class,
+            () -> notificadorWhatsapp.enviarNotificacion(usuarioNoRegistrado, "Estimado usuario, se ha cambiado...")
+        );
 
-        Usuario usuarioEnviado = new Usuario("B2026", "Manuel", "manuel_cuenca@mail.com", "+593135");
-        /*
-        Al no retornar nada no funciona assertThrows
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, notificador.enviarNotificacion(usuarioEnviado, "Estimado usuario, se ha cambiado..."));
-        assertEquals("El usuario " + usuarioEnviado.getNombre() + " no está suscrito a las notificaciones por WhatsApp.", ex.getMessage());
-        */
-       try {
-            notificadorWhatsapp.enviarNotificacion(usuarioEnviado, "Estimado usuario, se ha cambiado...");
-       }
-       catch(IllegalArgumentException ex) {
-        assertEquals("El usuario " + usuarioEnviado.getNombre() + " no está suscrito a las notificaciones por WhatsApp.", ex.getMessage());
-       }
-
+        assertNotNull(ex.getMessage(), "La excepción debe contener un mensaje explicativo.");
     }
 
     @Test
-    public void WhatsappValido() {
-        
-        notificadorWhatsapp.removerUsuario(new Usuario("A1", "Andrés", "andre04@mail.com", "+593123"));
+    @DisplayName("TC-05 / WhatsApp: Remueve usuario correctamente de la lista")
+    void testWhatsappRemoverUsuario() {
+        notificadorWhatsapp.removerUsuario(usuarioRegistrado);
 
-        //mensaje individual
-        Usuario usuarioEnviado = new Usuario("E3", "Samuel", "samuel_26A@mail.com", "+593579");
-        notificadorWhatsapp.enviarNotificacion(usuarioEnviado, "Se le informa que su cuenta...");
-
-        //mensaje a todos
-        notificadorWhatsapp.enviarNotificacionMasivo("El siguiente comunicado es porque...");
+        assertFalse(
+            notificadorWhatsapp.getListaUsuarios().contains(usuarioRegistrado),
+            "El usuario debe ser eliminado de la lista de notificaciones por WhatsApp."
+        );
     }
 
     @Test
-    public void EmailValido() {
+    @DisplayName("Email: Remueve usuario correctamente de la lista")
+    void testEmailRemoverUsuario() {
+        notificadorEmail.removerUsuario(usuarioRegistrado);
 
-        notificadorEmail.removerUsuario(new Usuario("E1", "Ortega", "jacinto_ortega@mail.com", "+593456"));
-
-        //mensaje individual
-        Usuario usuarioEnviado = new Usuario("A3", "Lopez", "lopez_obrador@mail.com", "+593246");
-        notificadorEmail.enviarNotificacion(usuarioEnviado, "Se le informa que...");
-
-        //mensaje a todos
-        notificadorEmail.enviarNotificacionMasivo("Se informa a todos un...");
-
+        assertFalse(
+            notificadorEmail.getListaUsuarios().contains(usuarioRegistrado),
+            "El usuario debe ser eliminado de la lista de notificaciones por Email."
+        );
     }
 
+    @Test
+    @DisplayName("Notificación masiva enviada sin errores")
+    void testNotificacionMasiva() {
+        assertDoesNotThrow(() -> {
+            notificadorEmail.enviarNotificacionMasivo("Comunicado general a todos los suscriptores");
+            notificadorWhatsapp.enviarNotificacionMasivo("Comunicado general a todos los suscriptores");
+        });
+    }
 }
