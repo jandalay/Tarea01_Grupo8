@@ -11,6 +11,9 @@ public class PaseoTuristico implements Reservable {
 
  // Se elimina el parámetro 'estado' para simplificar la lista de parámetros
 public PaseoTuristico(String id, String nombre, int plazasDisponibles, double precio) {
+    if (plazasDisponibles < 0) {
+            throw new IllegalArgumentException("Las plazas iniciales no pueden ser negativas.");
+        }
     this.id = id;
     this.nombre = nombre;
     this.plazasDisponibles = plazasDisponibles;
@@ -30,17 +33,26 @@ public PaseoTuristico(String id, String nombre, int plazasDisponibles, double pr
 
     @Override
     public void reservar() {
-        if (verificarDisponibilidad()) {
-            this.plazasDisponibles--;
-            if (this.plazasDisponibles == 0) {
-                this.estado = EstadoPaseo.AGOTADO;
-            }
+        if (!verificarDisponibilidad()) {
+            throw new IllegalStateException("No hay plazas disponibles para realizar la reserva.");
         }
+        this.plazasDisponibles--;
+        actualizarEstado(); // Extract Method
     }
 
     public void ajustarInventario(int plazas) {
+        // Validación de dominio
+        if (plazas < 0) {
+            throw new IllegalArgumentException("La cantidad de plazas no puede ser negativa.");
+        }
         this.plazasDisponibles = plazas;
-        if (this.plazasDisponibles > 0 && this.estado == EstadoPaseo.AGOTADO) {
+        actualizarEstado(); // Extract Method
+    }
+
+    private void actualizarEstado() {
+        if (this.plazasDisponibles == 0) {
+            this.estado = EstadoPaseo.AGOTADO;
+        } else if (this.plazasDisponibles > 0) {
             this.estado = EstadoPaseo.DISPONIBLE;
         }
     }
