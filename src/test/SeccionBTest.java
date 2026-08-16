@@ -28,8 +28,6 @@ public class SeccionBTest {
         pas3Agotado = new PaseoTuristico("PAS-3", "Tour Playa", 0, 30.0);
     }
 
-    // --- PRUEBAS ALINEADAS CON EL PLAN DE PRUEBAS (SECCIÓN A) ---
-
     @Test
     @DisplayName("TC-01: Cálculo de precio de paquete con descuento")
     void testTC01_calcularPrecioConDescuento() {
