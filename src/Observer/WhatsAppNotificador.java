@@ -1,54 +1,23 @@
 package observer;
-import java.util.ArrayList;
-import java.util.List;
 
 import composite.Usuario;
 
-public class WhatsAppNotificador implements Notificador {
-
-    private List<Usuario> listaUsuarios;
-
-    public WhatsAppNotificador() {
-        listaUsuarios = new ArrayList<>();
-    }
+public class WhatsAppNotificador extends abstractNotificador {
 
     @Override
     public void enviarNotificacion(Usuario usuario, String mensaje) {
-        if (!listaUsuarios.contains(usuario)) {
+        if (!usuariosSuscritos.contains(usuario)) {
             System.out.println("El usuario " + usuario.getNombre() + " no está suscrito a las notificaciones por WhatsApp.");
+            return;
         }
-        else {
-            listaUsuarios.get(listaUsuarios.indexOf(usuario)).recibirNotificacion(mensaje);
-        }
+        // Notificación directa invocando la respuesta del observador
+        usuario.recibirNotificacion(mensaje);
     }
 
     @Override
     public void enviarNotificacionMasivo(String mensaje) {
-        for (Usuario usuario : listaUsuarios) {
+        for (Usuario usuario : usuariosSuscritos) {
             usuario.recibirNotificacion("**WhatsApp** " + mensaje);
         }
     }
-
-    @Override
-    public void agregarUsuario(Usuario usuario) {
-        listaUsuarios.add(usuario);
-        System.out.println("El usuario: [" + usuario + "] ha sido agregado");
-        
-    }
-
-    @Override
-    public void removerUsuario(Usuario usuario) {
-            if (!listaUsuarios.remove(usuario)) {
-                System.out.println("No existe ese usuario");
-            }
-            else {
-                System.out.println("Usuario " + usuario + " ha sido removido.");
-            }
-    }
-
-    @Override
-    public List<Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
-
 }

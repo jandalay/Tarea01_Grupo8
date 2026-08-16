@@ -77,7 +77,20 @@ void setUp() {
         assertFalse(estaDisponible, 
             "La disponibilidad global del paquete debe ser false si al menos uno de sus componentes está agotado");
     }
-
- 
     
+    @Test
+    @DisplayName("Verificar que la gestión de usuarios heredada de abstractNotificador funciona correctamente")
+    void testGestionUsuariosHeredada() {
+        EmailNotificador notificador = new EmailNotificador();
+        Usuario usuario = new Usuario("U1", "Carlos", "carlos@mail.com", "0999999999");
+
+        // Prueba agregar usuario
+        notificador.agregarUsuario(usuario);
+        assertEquals(1, notificador.getListaUsuarios().size());
+        assertTrue(notificador.getListaUsuarios().contains(usuario));
+
+        // Prueba remover usuario
+        notificador.removerUsuario(usuario);
+        assertEquals(0, notificador.getListaUsuarios().size());
+    }
 }

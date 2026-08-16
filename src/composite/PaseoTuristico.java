@@ -41,7 +41,6 @@ public PaseoTuristico(String id, String nombre, int plazasDisponibles, double pr
     }
 
     public void ajustarInventario(int plazas) {
-        // Validación de dominio
         if (plazas < 0) {
             throw new IllegalArgumentException("La cantidad de plazas no puede ser negativa.");
         }
