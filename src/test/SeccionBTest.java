@@ -20,82 +20,82 @@ public class SeccionBTest {
     private PaseoTuristico pas3Agotado;
 
     @BeforeEach
-void setUp() {
-    hos1 = new Hospedaje("HOS-1", "Hotel San José", "Doble", EstadoHabitacion.DISPONIBLE, 100.0);
-    pas1 = new PaseoTuristico("PAS-1", "Tour Galápagos", 10, 50.0);
+    void setUp() {
+        hos1 = new Hospedaje("HOS-1", "Hotel San José", "Doble", EstadoHabitacion.DISPONIBLE, 100.0);
+        pas1 = new PaseoTuristico("PAS-1", "Tour Galápagos", 10, 50.0);
+        pas2 = new PaseoTuristico("PAS-2", "Tour Cajas", 1, 40.0);
+        hos2 = new Hospedaje("HOS-2", "Hotel Del Sol", "Simple", EstadoHabitacion.DISPONIBLE, 80.0);
+        pas3Agotado = new PaseoTuristico("PAS-3", "Tour Playa", 0, 30.0);
+    }
 
-    pas2 = new PaseoTuristico("PAS-2", "Tour Cajas", 1, 40.0);
+    // --- PRUEBAS ALINEADAS CON EL PLAN DE PRUEBAS (SECCIÓN A) ---
 
-    hos2 = new Hospedaje("HOS-2", "Hotel Del Sol", "Simple", EstadoHabitacion.DISPONIBLE, 80.0);
-    pas3Agotado = new PaseoTuristico("PAS-3", "Tour Playa", 0, 30.0);
-}
-
-    // CASOS DE PRUEBA DEL PLAN DE PRUEBAS (SECCIÓN A)
-
-@Test
+    @Test
     @DisplayName("TC-01: Cálculo de precio de paquete con descuento")
-    void  testTC01_calcularPrecioConDescuento() {
-        // Un paquete con 10% de descuento ($100 + $50)
+    void testTC01_calcularPrecioConDescuento() {
         PaqueteTuristico pkg1 = new PaqueteTuristico("PKG-1", "Pack Aventura", 10.0);
         pkg1.agregarItem(hos1);
         pkg1.agregarItem(pas1);
 
-        //  Se calcula el precio total
         double precioObtenido = pkg1.calcularPrecio();
 
-        // Entonces: Debe aplicar el descuento correctamente ($135.0)
+        // 1. ASERCIÓN TYPE: assertEquals
         assertEquals(135.0, precioObtenido, 0.001, 
-            "El cálculo del precio debe ser 135.0 tras aplicar el 10% de descuento al subtotal de 150.0");
+            "El cálculo del precio debe ser 135.0 tras aplicar el 10% de descuento");
     }
 
     @Test
     @DisplayName("TC-02: Reserva de última plaza en paseo turístico")
     void testTC02_agotarPlazasAlReservar() {
-        // Dado: Un paseo con 1 sola plaza
-        assertEquals(1, pas2.getPlazasDisponibles(), "El paseo debe iniciar con 1 plaza disponible");
+        assertEquals(1, pas2.getPlazasDisponibles());
 
-        // Cuando: Se reserva el último cupo
         pas2.reservar();
 
-        // Entonces: Debe quedar sin plazas y no disponible
-        assertEquals(0, pas2.getPlazasDisponibles(), "El número de plazas disponibles debe reducirse a 0");
-        assertFalse(pas2.verificarDisponibilidad(), "El estado del paseo debe cambiar a AGOTADO (no disponible)");
+        assertEquals(0, pas2.getPlazasDisponibles());
+        // 2. ASERCIÓN TYPE: assertFalse
+        assertFalse(pas2.verificarDisponibilidad(), "El estado del paseo debe cambiar a no disponible");
     }
 
     @Test
     @DisplayName("TC-03: Disponibilidad de paquete con un ítem agotado")
     void testTC03_retornarFalsoSiComponenteEstaAgotado() {
-        // Un paquete con un ítem disponible y uno agotado
         PaqueteTuristico pkg2 = new PaqueteTuristico("PKG-2", "Pack Mixto", 0.0);
-        pkg2.agregarItem(hos2);        // DISPONIBLE
-        pkg2.agregarItem(pas3Agotado); // AGOTADO (0 plazas)
+        pkg2.agregarItem(hos2);
+        pkg2.agregarItem(pas3Agotado);
 
-        // Se consulta la disponibilidad del paquete
         boolean estaDisponible = pkg2.verificarDisponibilidad();
 
-        //  La disponibilidad global debe ser falsa
         assertFalse(estaDisponible, 
-            "La disponibilidad global del paquete debe ser false si al menos uno de sus componentes está agotado");
+            "La disponibilidad debe ser false si al menos un ítem está agotado");
     }
-    
+
     @Test
-    @DisplayName("Verificar que la gestión de usuarios heredada de abstractNotificador funciona correctamente")
-    void testGestionUsuariosHeredada() {
-        EmailNotificador notificador = new EmailNotificador();
-        Usuario usuario = new Usuario("U1", "Carlos", "carlos@mail.com", "0999999999");
+    @DisplayName("TC-04: Remover usuario de WhatsAppNotificador")
+    void testTC04_removerUsuario() {
+        WhatsAppNotificador wsNotif = new WhatsAppNotificador();
+        Usuario usuario = new Usuario("A1", "Andrés", "andre04@mail.com", "+593123");
 
-        // Prueba agregar usuario
-        notificador.agregarUsuario(usuario);
-        assertEquals(1, notificador.getListaUsuarios().size());
-        assertTrue(notificador.getListaUsuarios().contains(usuario));
+        wsNotif.agregarUsuario(usuario);
+        wsNotif.removerUsuario(usuario);
 
-        // Prueba remover usuario
-        notificador.removerUsuario(usuario);
-        assertEquals(0, notificador.getListaUsuarios().size());
+        // 3. ASERCIÓN TYPE: assertTrue
+        assertTrue(wsNotif.getListaUsuarios().isEmpty(), "La lista de usuarios debe quedar vacía");
     }
 
-     @Test
-    @DisplayName("TC-06: Caso limite en calcularPrecio")
+    @Test
+    @DisplayName("TC-05: Error al enviar notificación a usuario no registrado")
+    void testTC05_enviarNotificacionError() {
+        EmailNotificador emailNotif = new EmailNotificador();
+        Usuario usuarioNoAgregado = new Usuario("E9", "Moran", "moran_bonilla@mail.com", "+593987");
+
+        // 4. ASERCIÓN TYPE: assertThrows
+        assertThrows(IllegalArgumentException.class, () -> {
+            emailNotif.enviarNotificacion(usuarioNoAgregado, "Estimado usuario, se notifica que...");
+        }, "Debe lanzar IllegalArgumentException si el usuario no está suscrito");
+    }
+
+    @Test
+    @DisplayName("TC-06: Caso límite en calcularPrecio (valores en 0.0)")
     void testTC06_CasoLimiteCalcularPrecio() {
         Hospedaje hos0 = new Hospedaje("A0", "Hosp_Nulo", "Simple", EstadoHabitacion.DISPONIBLE, 0.0);
         PaseoTuristico pas0 = new PaseoTuristico("B0", "Paseo_Nulo", 5, 0.0);
@@ -103,23 +103,50 @@ void setUp() {
         pkg0.agregarItem(hos0);
         pkg0.agregarItem(pas0);
 
-        double valor = pkg0.calcularPrecio();
-        assertEquals(0.0, valor, "Al tener reservables con precios 0.0 (limite) devuelve un total de 0.0");
+        assertEquals(0.0, pkg0.calcularPrecio(), "Debe devolver 0.0 cuando los componentes valen 0.0");
     }
 
     @Test
-    @DisplayName("TC-07: Disponibilidad de paquete")
+    @DisplayName("TC-07: Disponibilidad de paquete todos disponibles")
     void testTC07_retornarTrueSiComponenteEstaDisponible() {
         PaseoTuristico pas3Disponible = new PaseoTuristico("PAS-3.1", "Tour playa", 2, 30.0);
         PaqueteTuristico pkg2 = new PaqueteTuristico("PKG-2", "Pack Mixto", 0.0);
         pkg2.agregarItem(hos2);        
         pkg2.agregarItem(pas3Disponible); 
 
-        boolean estaDisponible = pkg2.verificarDisponibilidad();
+        assertTrue(pkg2.verificarDisponibilidad());
+    }
+@Test
+    @DisplayName("TC-08: Procesar pago exitoso y confirmar reserva")
+    void testTC08_procesarPagoExitoso() {
+        Usuario usuario = new Usuario("U100", "Maria", "maria@mail.com", "0999999999");
+        Reserva reserva = new Reserva(usuario, java.util.List.of(hos1));
+        
+        // Se implementa la interfaz PagoService simulando un pago exitoso (devuelve true)
+        PagoService pagoExitoso = monto -> true;
+        EmailNotificador emailNotif = new EmailNotificador();
 
-        assertTrue(estaDisponible, 
-            "La disponibilidad global del paquete debe ser true si todos sus componentes están disponibles");
+        boolean resultado = reserva.procesarPagoYConfirmar(pagoExitoso, emailNotif);
+
+        assertTrue(resultado, "El pago debe procesarse de forma exitosa");
+        assertNotNull(reserva.getEstado(), "El estado de la reserva no debe ser nulo tras confirmar");
+        assertEquals(EstadoReserva.RESERVADO, reserva.getEstado(), "El estado debe cambiar a RESERVADO");
     }
 
-    
-}
+    @Test
+    @DisplayName("TC-09: Abortar proceso de pago por fallo en servicio")
+    void testTC09_procesarPagoMontoInsuficiente() {
+        Usuario usuario = new Usuario("U101", "Pedro", "pedro@mail.com", "0988888888");
+        Reserva reserva = new Reserva(usuario, java.util.List.of(hos1));
+        
+        // Se implementa la interfaz PagoService simulando un pago fallido (devuelve false)
+        PagoService pagoFallido = monto -> false;
+        EmailNotificador emailNotif = new EmailNotificador();
+
+        boolean resultado = reserva.procesarPagoYConfirmar(pagoFallido, emailNotif);
+
+        assertFalse(resultado, "El procesamiento de pago debe retornar false");
+        // ASERCIÓN TYPE: assertNotEquals
+        assertNotEquals(EstadoReserva.RESERVADO, reserva.getEstado(), "El estado no debe ser RESERVADO si el pago falla");
+    }
+ }
