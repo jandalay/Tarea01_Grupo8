@@ -93,4 +93,33 @@ void setUp() {
         notificador.removerUsuario(usuario);
         assertEquals(0, notificador.getListaUsuarios().size());
     }
+
+     @Test
+    @DisplayName("TC-06: Caso limite en calcularPrecio")
+    void testTC06_CasoLimiteCalcularPrecio() {
+        Hospedaje hos0 = new Hospedaje("A0", "Hosp_Nulo", "Simple", EstadoHabitacion.DISPONIBLE, 0.0);
+        PaseoTuristico pas0 = new PaseoTuristico("B0", "Paseo_Nulo", 5, 0.0);
+        PaqueteTuristico pkg0 = new PaqueteTuristico("PGK-0", "Conjunto 0", 0.0);
+        pkg0.agregarItem(hos0);
+        pkg0.agregarItem(pas0);
+
+        double valor = pkg0.calcularPrecio();
+        assertEquals(0.0, valor, "Al tener reservables con precios 0.0 (limite) devuelve un total de 0.0");
+    }
+
+    @Test
+    @DisplayName("TC-07: Disponibilidad de paquete")
+    void testTC07_retornarTrueSiComponenteEstaDisponible() {
+        PaseoTuristico pas3Disponible = new PaseoTuristico("PAS-3.1", "Tour playa", 2, 30.0);
+        PaqueteTuristico pkg2 = new PaqueteTuristico("PKG-2", "Pack Mixto", 0.0);
+        pkg2.agregarItem(hos2);        
+        pkg2.agregarItem(pas3Disponible); 
+
+        boolean estaDisponible = pkg2.verificarDisponibilidad();
+
+        assertTrue(estaDisponible, 
+            "La disponibilidad global del paquete debe ser true si todos sus componentes están disponibles");
+    }
+
+    
 }
